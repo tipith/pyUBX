@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """A space to play around with messages."""
 
-import UBX
-from UBXMessage import parseUBXPayload
+import pyUBX.UBX as UBX
+from pyUBX.core import parseUBXPayload
 
 if __name__ == '__main__':
 

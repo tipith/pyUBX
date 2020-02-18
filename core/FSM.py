@@ -1,21 +1,10 @@
 """TODO."""
 from enum import Enum
-import UBX
 
 
 def isObj(obj, cls):
     """Test if UBX message obj is of class cls."""
     return obj._class == cls._class and obj._id == cls._id
-
-
-def isACK(obj):
-    """Test whether message obj is a ACK."""
-    return isObj(obj, UBX.ACK.ACK)
-
-
-def isNAK(obj):
-    """Test whether message obj is a NAK."""
-    return isObj(obj, UBX.ACK.NAK)
 
 
 def FSM_Get(msgCls):

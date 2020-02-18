@@ -9,9 +9,12 @@ from threading import Lock
 from enum import Enum
 import argparse
 import datetime
-import UBX
-from UBXManager import UBXManager
-from FSM import *
+from pyUBX.core import UBXManager, FSM_Get, isObj
+import pyUBX.UBX as UBX
+
+
+def isACK(obj):
+    return isObj(obj, UBX.ACK.ACK)
 
 
 @FSM_Get(UBX.MON.VER)

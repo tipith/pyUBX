@@ -1,10 +1,7 @@
 """Navigation result messages"""
 
-from UBXMessage import initMessageClass, addGet, parseUBXPayload
 import struct
-import UBXESFSensor
-from Types import U2, U4, X2, X4
-
+from pyUBX.core import SensorMeasurement, initMessageClass, addGet, parseUBXPayload, U2, U4, X2, X4
 
 @initMessageClass
 class ESF:
@@ -35,7 +32,7 @@ class ESF:
         @property
         def measurements(self):
             datas = (self.__getattribute__(f'data_{idx}') for idx in range(1, self.numMeas+1))
-            return [UBXESFSensor.SensorMeasurement.from_integer(d) for d in datas]
+            return [SensorMeasurement.from_integer(d) for d in datas]
 
         @staticmethod
         def create(timeTag, measurements, timeMarkSent=0, timeMarkEdge=0, calibTtagValid=0, id=0):

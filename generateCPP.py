@@ -5,8 +5,8 @@ import sys
 import re
 import datetime
 import inspect
-from introspect import getClassesInModule, getClassName, getClassMembers
-import UBX
+from pyUBX.core import getClassesInModule, getClassName, getClassMembers
+import pyUBX.UBX as UBX
 
 __version__ = "0.1"
 

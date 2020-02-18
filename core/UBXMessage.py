@@ -4,8 +4,7 @@
 import struct
 import inspect
 from enum import Enum
-import sys
-from itertools import accumulate
+import importlib
 
 
 class MessageClass(Enum):
@@ -249,14 +248,9 @@ def classFromMessageClass():
     The result is something like
     [(5, UBX.ACK.ACK), (6, UBX.CFG.CFG), (10, UBX.MON.MON)]
     """
-    return dict([
-        (getattr(v, '_class'), v)
-        for (k, v) in inspect.getmembers(sys.modules["UBX"], inspect.isclass)
-        if v.__name__ not in [
-            "UBXMessage", "U1", "I1", "X1", "U2", "I2", "X2",
-            "U4", "I4", "X4", "R4", "R8", "CH", "U"
-            ]
-    ])
+    ubx = importlib.import_module('pyUBX.UBX')
+    members = inspect.getmembers(ubx, inspect.isclass)
+    return {getattr(v, '_class'): v for (k, v) in members if hasattr(v, '_class')}
 
 
 def parseUBXPayload(msgClass, msgId, payload):
@@ -289,9 +283,6 @@ def addGet(cls):
     """Decorator that adds a Get function to the subclass."""
     class Get(UBXMessage):
         def __init__(self):
-            # this only works because class and module have the same name!
-            import UBX
-            _class = eval(cls.__module__)._class
-            UBXMessage.__init__(self, _class, cls._id, b'')
+            UBXMessage.__init__(self, cls._class, cls._id, b'')
     setattr(cls, "Get", Get)
     return cls

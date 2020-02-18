@@ -1,8 +1,7 @@
 """Configuration Input Messages: Set Dynamic Model, Set DOP Mask, Set Baud Rate, etc."""
 
-from UBXMessage import UBXMessage, initMessageClass, addGet
 import struct
-from Types import U1, U2, U4, X2, X4, U, I2, I4
+from pyUBX.core import UBXMessage, initMessageClass, addGet, U1, U2, U4, X2, X4, U, I2, I4
 
 
 @initMessageClass
