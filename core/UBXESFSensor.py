@@ -78,7 +78,7 @@ class SensorTransform:
 
     @staticmethod
     def convert_tick2wire(x):
-        return ((x < 0) << 23) | abs(x)
+        return ((x < 0) << 23) | (abs(x) & 0x7fffff)
 
     @staticmethod
     def convert_wire2tick(x):
